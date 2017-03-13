@@ -33,7 +33,6 @@ class Crawler:
         self.done = 0
         count = 0
     def get_nearby_bikes(self, args):
-        print(datetime.datetime.now())
         try:
             url = "https://mwx.mobike.com/mobike-api/rent/nearbyBikesInfo.do"
 
