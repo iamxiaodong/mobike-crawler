@@ -31,7 +31,7 @@ class Crawler:
         self.proxyProvider = ProxyProvider()
         self.total = 0
         self.done = 0
-
+        count = 0
     def get_nearby_bikes(self, args):
         print(datetime.datetime.now())
         try:
@@ -80,7 +80,9 @@ class Crawler:
                             timespend = datetime.datetime.now() - self.start_time
                             percent = self.done / self.total
                             total = timespend / percent
-                            print(percent * 100)
+                            if(percent>count):
+                                print(percent * 100)
+                                count += 1
                         except Exception as ex:
                             pass#print (ex)
                             #traceback.print_exc()
@@ -90,17 +92,21 @@ class Crawler:
 
     def start(self):
 
-        with open('../city_list.json', 'r') as f:
+        with open('./city_list.json', 'r') as f:
             data = json.load(f)
-        top = float(data[self.cityname]['top'])
-        left = float(data[self.cityname]['left'])
-        right = float(data[self.cityname]['right'])
-        bottom = float(data[self.cityname]['bottom'])
-        offset = 0.002
-        print (top)
-        print(left)
-        print(right)
-        print(bottom)
+        try:
+            top = float(data[self.cityname]['top'])
+            left = float(data[self.cityname]['left'])
+            right = float(data[self.cityname]['right'])
+            bottom = float(data[self.cityname]['bottom'])
+            offset = 0.002
+            print (top)
+            print(left)
+            print(right)
+            print(bottom)
+        except Exception as ex:
+            os.removedirs(self.csv_path)
+            os._exit(0)
         if os.path.isfile(self.db_name):
             os.remove(self.db_name)
 

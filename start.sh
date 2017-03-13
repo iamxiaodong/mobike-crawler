@@ -3,8 +3,9 @@
 mkdir db
 ulimit -n 65535
 ARRAY=`cat city_name`
+time=`date +%Y%m%d%T`
 while true; do
-    echo "Started"
+    echo "Started at $time"
     for i in $ARRAY
     do
         ps -fe|grep $i |grep -v grep
@@ -13,5 +14,5 @@ while true; do
             python3 crawler.py $i &
         fi
     done
-
+    sleep 1m
 done
