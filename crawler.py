@@ -31,7 +31,6 @@ class Crawler:
         self.proxyProvider = ProxyProvider()
         self.total = 0
         self.done = 0
-        count = 0
     def get_nearby_bikes(self, args):
         try:
             url = "https://mwx.mobike.com/mobike-api/rent/nearbyBikesInfo.do"
@@ -79,9 +78,7 @@ class Crawler:
                             timespend = datetime.datetime.now() - self.start_time
                             percent = self.done / self.total
                             total = timespend / percent
-                            if(percent>count):
-                                print(percent * 100)
-                                count += 1
+                            #print(percent * 100)
                         except Exception as ex:
                             pass#print (ex)
                             #traceback.print_exc()
@@ -99,10 +96,6 @@ class Crawler:
             right = float(data[self.cityname]['right'])
             bottom = float(data[self.cityname]['bottom'])
             offset = 0.002
-            print (top)
-            print(left)
-            print(right)
-            print(bottom)
         except Exception as ex:
             os.removedirs(self.csv_path)
             os._exit(0)
@@ -117,7 +110,6 @@ class Crawler:
             pass
 
         executor = ThreadPoolExecutor(max_workers=250)
-        print("Start")
         self.total = 0
         lat_range = np.arange(top, bottom, -offset)
         for lat in lat_range:
@@ -144,6 +136,6 @@ class Crawler:
         f.close()
 
         os.system("gzip -9 " + self.csv_name)
-
+        print("%s done" %(self.cityname))
 
 Crawler().start()
