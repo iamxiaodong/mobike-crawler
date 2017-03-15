@@ -78,7 +78,7 @@ class Crawler:
                             timespend = datetime.datetime.now() - self.start_time
                             percent = self.done / self.total
                             total = timespend / percent
-                            #print(percent * 100)
+                            print("%s \t %f" %(self.cityname,percent * 100))
                         except Exception as ex:
                             pass#print (ex)
                             #traceback.print_exc()
