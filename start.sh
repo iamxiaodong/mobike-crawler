@@ -2,7 +2,7 @@
 
 mkdir db
 ulimit -n 65535
-ARRAY=`cat city_name`
+ARRAY=`cat city_name|grep -v '#'`
 time=`date +%Y%m%d%T`
 while true; do
     for i in $ARRAY
